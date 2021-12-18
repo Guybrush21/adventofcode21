@@ -9,7 +9,6 @@ fn main() {
     let contents = fs::read_to_string(filename)
     .expect("Something went wrong reading the file");
      
-
     let lines = contents.lines();
     let mut increase = -1;
     let mut curr = 0;
@@ -17,17 +16,13 @@ fn main() {
 
     for elem in lines {
         curr = elem.parse::<i32>().unwrap();        
-        if(curr > prev){
+        if curr > prev{
             increase += 1;
             println!("increased");
         }
         prev = curr;
-
     }
 
     println!("Total increas = {}", increase);
-
-
-    //println!("With text:\n{}", contents);
-    
+   
 }
