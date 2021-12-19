@@ -11,3 +11,5 @@ just run the program with input file, as argument.
 program will accept input file as argument, and optionally a second parameter.
 If launched with 'simple' parameter, program resolve part one, otherwise it
 will resolve part two of the problem.
+
+## 03 Binary Diagnostic
