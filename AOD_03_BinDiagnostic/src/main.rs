@@ -5,33 +5,11 @@ fn main() {
 
     let contents = fs::read_to_string("input").expect("Something went wrong reading the file");
     let lines = Vec::from_iter(contents.lines());
-    let total = lines.len() as u32;
-    let input_size = lines[0].chars().count();
 
-    let mut gamma_rate = String::with_capacity(input_size);
-    let mut counter: Vec<u32> = Vec::with_capacity(input_size);
-
-    for i in 0..counter.capacity() {
-        counter.push(0)
-    }
-
-    println!("{:?}", counter);
-
-    for elem in contents.lines() {
-        for (i, c) in elem.chars().enumerate() {
-            if c == '1' {
-                counter[i] += 1
-            }
-            println!("{:?}", counter);
-        }
-    }
-
-    for bit in counter {
-        gamma_rate.push_str(if bit > (total / 2) { "1" } else { "0" });
-    }
-    println!("Gamma Rate: {:?}", gamma_rate);
+    let gamma_rate = calculate_most_common(&lines);
     let epsilon_rate = invert_bit_string(&gamma_rate);
-    println!("Gamma Rate: {:?}", epsilon_rate);
+    println!("Gamma Rate: {:?}", gamma_rate);
+    println!("Epsilon Rate: {:?}", epsilon_rate);
 
     let epsilon = convert_string_binary_to_int(&epsilon_rate);
     let gamma = convert_string_binary_to_int(&gamma_rate);
@@ -41,7 +19,45 @@ fn main() {
     println!("Epsilon Rate: {}", epsilon);
     println!("Final result: {}", result);
 
-    // TODO: convert binary string to real number and multiply those
+    calculate_oxygen(&lines);
+}
+
+fn calculate_oxygen(input: &Vec<&str>) -> String {
+    let mut index = 0;
+    let result: Vec<u8> = Vec::with_capacity(input[0].chars().count());
+
+    return "".to_string();
+}
+
+fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
+    let length = input[0].chars().count();
+    let mut rate = String::with_capacity(length);
+    let mut counter: Vec<u32> = Vec::with_capacity(length);
+    for i in 0..length {
+        counter.push(0);
+    }
+
+    for elem in input {
+        for (i, c) in elem.chars().enumerate() {
+            if c == '1' {
+                counter[i] += 1
+            }
+            println!("{:?}", counter);
+        }
+    }
+    for bit in counter {
+        rate.push_str(if bit > input.len() as u32 / 2 {
+            "1"
+        } else {
+            "0"
+        });
+    }
+    rate
+}
+
+fn calculate_most_common_in_position(input: &Vec<&str>, index: &u32) -> u8 {
+    let total = input.len();
+    8
 }
 
 fn convert_string_binary_to_int(val: &str) -> u32 {
