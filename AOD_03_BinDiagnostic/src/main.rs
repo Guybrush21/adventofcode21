@@ -22,11 +22,8 @@ fn main() {
     calculate_oxygen(&lines);
 }
 
-fn calculate_oxygen(input: &Vec<&str>) -> String {
-    let mut index = 0;
-    let result: Vec<u8> = Vec::with_capacity(input[0].chars().count());
+fn calculate_oxygen(input: &Vec<&str>) {
 
-    return "".to_string();
 }
 
 fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
@@ -53,11 +50,6 @@ fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
         });
     }
     rate
-}
-
-fn calculate_most_common_in_position(input: &Vec<&str>, index: &u32) -> u8 {
-    let total = input.len();
-    8
 }
 
 fn convert_string_binary_to_int(val: &str) -> u32 {
