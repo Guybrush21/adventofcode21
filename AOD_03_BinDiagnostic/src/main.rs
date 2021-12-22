@@ -1,29 +1,81 @@
+use log::LevelFilter;
+use log::{debug, info, trace};
+use simple_logger::SimpleLogger;
 use std::fs;
 
 fn main() {
-    println!("Solving part 1 of third AOD");
+    SimpleLogger::new()
+        .with_level(LevelFilter::Info)
+        .init()
+        .unwrap();
+    info!("Solving part 1 of third AOD");
 
     let contents = fs::read_to_string("input").expect("Something went wrong reading the file");
     let lines = Vec::from_iter(contents.lines());
 
     let gamma_rate = calculate_most_common(&lines);
     let epsilon_rate = invert_bit_string(&gamma_rate);
-    println!("Gamma Rate: {:?}", gamma_rate);
-    println!("Epsilon Rate: {:?}", epsilon_rate);
+    info!("Gamma Rate: {:?}", gamma_rate);
+    info!("Epsilon Rate: {:?}", epsilon_rate);
 
     let epsilon = convert_string_binary_to_int(&epsilon_rate);
     let gamma = convert_string_binary_to_int(&gamma_rate);
     let result = epsilon * gamma;
 
-    println!("Gamma Rate: {}", gamma);
-    println!("Epsilon Rate: {}", epsilon);
-    println!("Final result: {}", result);
+    info!("Gamma Rate: {}", gamma);
+    info!("Epsilon Rate: {}", epsilon);
+    info!("Final result: {}", result);
 
-    calculate_oxygen(&lines);
+    info!("==== PART TWO ====");
+
+    let oxygen = calculate_oxygen(&lines);
+    info!("Oxygen value: {}", oxygen);
+
+    let co2_scrubber = calculate_co2(&lines);
+    info!("CO2 value: {}", co2_scrubber);
 }
 
-fn calculate_oxygen(input: &Vec<&str>) {
+fn calculate_co2(input: &Vec<&str>) -> u32 {
+    let mut filtered = input.clone();
 
+    for index in 0..input[0].chars().count() {
+        let most_common = invert_bit_string(&calculate_most_common(&filtered));
+        trace!(
+            "Searching for {:?} in position {} in {:?}",
+            most_common.chars().nth(index),
+            index,
+            filtered
+        );
+        filtered.retain(|&x| x.chars().nth(index) == most_common.chars().nth(index));
+        if filtered.len() == 1 {
+            break;
+        };
+    }
+
+    if filtered.len() > 1 {
+        panic!("Input is undefined?");
+    } else {
+        convert_string_binary_to_int(filtered[0])
+    }
+}
+
+fn calculate_oxygen(input: &Vec<&str>) -> u32 {
+    let mut filtered = input.clone();
+
+    for index in 0..input[0].chars().count() {
+        let most_common = calculate_most_common(&filtered);
+        trace!(
+            "Searching for {:?} in position {} in {:?}",
+            most_common.chars().nth(index),
+            index,
+            filtered
+        );
+        filtered.retain(|&x| x.chars().nth(index) == most_common.chars().nth(index));
+        if filtered.len() == 1 {
+            break;
+        };
+    }
+    convert_string_binary_to_int(filtered[0])
 }
 
 fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
@@ -39,7 +91,7 @@ fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
             if c == '1' {
                 counter[i] += 1
             }
-            println!("{:?}", counter);
+            debug!("{:?}", counter);
         }
     }
     for bit in counter {
