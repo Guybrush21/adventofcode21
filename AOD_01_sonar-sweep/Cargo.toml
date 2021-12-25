@@ -1,5 +1,5 @@
 [package]
-name = "AOD_01_sonar_sweep"
+name = "aod_01_sonar_sweep"
 version = "0.1.0"
 edition = "2021"
 

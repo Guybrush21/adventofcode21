@@ -1,10 +1,10 @@
-use log::{debug, info, trace};
+use log::{debug};
 
 pub fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
     let length = input[0].chars().count();
     let mut rate = String::with_capacity(length);
     let mut counter: Vec<u32> = Vec::with_capacity(length);
-    for i in 0..length {
+    for _ in 0..length {
         counter.push(0);
     }
 

@@ -1,4 +1,4 @@
-use log::{debug, info, trace};
+use log::{trace};
 use crate::diagnostic::report_analysis;
 
 pub fn calculate_gamma(input: &Vec<&str>) -> u32 {

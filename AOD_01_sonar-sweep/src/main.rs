@@ -10,12 +10,11 @@ fn main() {
     .expect("Something went wrong reading the file");
      
     let lines = contents.lines();
-    let mut increase = -1;
-    let mut curr = 0;
+    let mut increase = -1;    
     let mut prev = 0;    
 
     for elem in lines {
-        curr = elem.parse::<i32>().unwrap();        
+        let curr = elem.parse::<i32>().unwrap();        
         if curr > prev{
             increase += 1;
             println!("increased");

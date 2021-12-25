@@ -2,9 +2,8 @@ use log::LevelFilter;
 use log::{info};
 use simple_logger::SimpleLogger;
 use std::fs;
-
+mod test;
 mod diagnostic;
-
 fn main() {
     SimpleLogger::new()
         .with_level(LevelFilter::Info)

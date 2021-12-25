@@ -1,5 +1,5 @@
 [package]
-name = "AOD_03_BinDiagnostic"
+name = "aod_03_diagnostic"
 version = "0.1.0"
 edition = "2021"
 

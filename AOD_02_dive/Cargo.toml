@@ -1,5 +1,5 @@
 [package]
-name = "AOD_02_dive"
+name = "aod_02_dive"
 version = "0.1.0"
 edition = "2021"
 
