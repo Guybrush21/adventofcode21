@@ -20,7 +20,7 @@ fn main() {
 
     info!("Gamma Rate: {}", gamma);
     info!("Epsilon Rate: {}", epsilon);
-    info!("Final result: {}", epsilon * gamma);
+    info!("Final result: {}", diagnostic::submarine::calculate_power(&lines));
 
     info!("==== PART TWO ====");
 

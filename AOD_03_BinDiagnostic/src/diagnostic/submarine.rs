@@ -1,4 +1,4 @@
-use log::{trace};
+use log::{debug};
 use crate::diagnostic::report_analysis;
 
 pub fn calculate_gamma(input: &Vec<&str>) -> u32 {
@@ -11,13 +11,17 @@ pub fn calculate_epsilon(input: &Vec<&str>) -> u32 {
     report_analysis::convert_string_binary_to_int(&epsilon_rate)
 }
 
+pub fn calculate_power(input: &Vec<&str>) -> u32{
+    calculate_gamma(input) * calculate_epsilon(input)
+}
+
 pub fn calculate_co2(input: &Vec<&str>) -> u32 {
     let mut filtered = input.clone();
 
     for index in 0..input[0].chars().count() {
         let most_common =
             report_analysis::invert_bit_string(&report_analysis::calculate_most_common(&filtered));
-        trace!(
+            debug!(
             "Searching for {:?} in position {} in {:?}",
             most_common.chars().nth(index),
             index,
@@ -41,7 +45,7 @@ pub fn calculate_oxygen(input: &Vec<&str>) -> u32 {
 
     for index in 0..input[0].chars().count() {
         let most_common = report_analysis::calculate_most_common(&filtered);
-        trace!(
+        debug!(
             "Searching for {:?} in position {} in {:?}",
             most_common.chars().nth(index),
             index,
