@@ -13,3 +13,7 @@ If launched with 'simple' parameter, program resolve part one, otherwise it
 will resolve part two of the problem.
 
 ## 03 Binary Diagnostic
+
+launching main will provide the solution.
+Added the unit test and subdivide the solution in modules.
+Also, nicer logging added with log and SimpleLogger
