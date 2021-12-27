@@ -1,4 +1,4 @@
-use log::{debug};
+use log::{trace, debug};
 
 pub fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
     let length = input[0].chars().count();
@@ -13,15 +13,22 @@ pub fn calculate_most_common(input: &Vec<&str>) -> std::string::String {
             if c == '1' {
                 counter[i] += 1
             }
-            debug!("{:?}", counter);
+            trace!("{:?}", counter);
         }
     }
+    debug!("coutner: {:?}", counter );
+   
     for bit in counter {
-        rate.push_str(if bit > input.len() as u32 / 2 {
+        debug!("bit: {} - len: {}", bit, input.len() as u32 / 2 );
+        let c =         
+        if bit > (input.len() as u32/ 2) 
+        || (input.len() % 2 == 0 && bit == (input.len() as u32/ 2)) // manage odd dimension
+        {
             "1"
         } else {
             "0"
-        });
+        };
+        rate.push_str(c);
     }
     rate
 }

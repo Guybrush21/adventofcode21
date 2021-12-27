@@ -21,6 +21,7 @@ pub fn calculate_co2(input: &Vec<&str>) -> u32 {
     for index in 0..input[0].chars().count() {
         let most_common =
             report_analysis::invert_bit_string(&report_analysis::calculate_most_common(&filtered));
+            
             debug!(
             "Searching for {:?} in position {} in {:?}",
             most_common.chars().nth(index),
@@ -36,6 +37,7 @@ pub fn calculate_co2(input: &Vec<&str>) -> u32 {
     if filtered.len() > 1 {
         panic!("Input is undefined?");
     } else {
+        debug!("{}",filtered[0]);
         report_analysis::convert_string_binary_to_int(filtered[0])
     }
 }
