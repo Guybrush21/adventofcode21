@@ -1,12 +1,13 @@
+use log::info;
 use log::LevelFilter;
-use log::{info};
 use simple_logger::SimpleLogger;
 use std::fs;
-mod test;
 mod diagnostic;
+mod test;
 fn main() {
     SimpleLogger::new()
         .with_level(LevelFilter::Info)
+        .with_utc_timestamps()
         .init()
         .unwrap();
 
@@ -20,7 +21,10 @@ fn main() {
 
     info!("Gamma Rate: {}", gamma);
     info!("Epsilon Rate: {}", epsilon);
-    info!("Final result: {}", diagnostic::submarine::calculate_power(&lines));
+    info!(
+        "Final result: {}",
+        diagnostic::submarine::calculate_power(&lines)
+    );
 
     info!("==== PART TWO ====");
 
