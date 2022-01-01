@@ -2,7 +2,20 @@ use std::env;
 use std::fs;
 use std::string::String;
 
-pub fn complex_aiming(contents: String) {
+use log::debug;
+
+pub struct Position {
+    pub distance: u32,
+    pub depth: u32,
+}
+
+impl Position {
+    pub fn result(&self) -> u32 {
+        self.distance * self.depth
+    }
+}
+
+pub fn complex_aiming(contents: String) -> Position {
     let lines = contents.lines();
     let mut distance = 0;
     let mut depth = 0;
@@ -25,13 +38,14 @@ pub fn complex_aiming(contents: String) {
         }
     }
 
-    println!("Total depth = {}", depth);
-    println!("Total distance = {}", distance);
-    println!("Final Aim = {}", aim);
-    println!("Distance x Solution = {}", distance * depth);
+    debug!("Total depth = {}", depth);
+    debug!("Total distance = {}", distance);
+    debug!("Final Aim = {}", aim);
+    debug!("Distance x Solution = {}", distance * depth);
+    Position { depth, distance }
 }
 
-pub fn simple_aiming(contents: String) {
+pub fn simple_aiming(contents: String) -> Position {
     let lines = contents.lines();
     let mut distance = 0;
     let mut depth = 0;
@@ -52,7 +66,9 @@ pub fn simple_aiming(contents: String) {
         }
     }
 
-    println!("Total depth = {}", depth);
-    println!("Total distance = {}", distance);
-    println!("Distance x Solution = {}", distance * depth);
+    debug!("Total depth = {}", depth);
+    debug!("Total distance = {}", distance);
+    debug!("Distance x Solution = {}", distance * depth);
+
+    Position { depth, distance }
 }

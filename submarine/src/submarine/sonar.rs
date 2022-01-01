@@ -1,4 +1,4 @@
-use std::{num::ParseIntError, string::ParseError};
+use log::trace;
 
 pub fn single_sweep_increase(input: String) -> i32 {
     let mut increase: i32 = -1;
@@ -8,7 +8,7 @@ pub fn single_sweep_increase(input: String) -> i32 {
         let curr = elem.parse::<i32>().unwrap();
         if curr > prev {
             increase += 1;
-            println!("increased");
+            trace!("increased");
         }
         prev = curr;
     }
@@ -29,7 +29,7 @@ pub fn triple_sweep_increse(input: String) -> i32 {
             .map(|(j, val)| val.parse().expect("parsing error"))
             .collect();
 
-        println!("{:?}", triplet);
+        trace!("{:?}", triplet);
         let curr = triplet[0] + triplet[1] + triplet[2];
 
         if curr > prev {
@@ -43,14 +43,16 @@ pub fn triple_sweep_increse(input: String) -> i32 {
 
 #[test]
 fn single_sweep() {
-    let contents = std::fs::read_to_string("test").expect("Something went wrong reading the file");
+    let contents =
+        std::fs::read_to_string("data/01-test").expect("Something went wrong reading the file");
     let result = single_sweep_increase(contents);
     assert!(result == 7);
 }
 
 #[test]
 fn multiple_sweep() {
-    let contents = std::fs::read_to_string("test").expect("Something went wrong reading the file");
+    let contents =
+        std::fs::read_to_string("data/01-test").expect("Something went wrong reading the file");
     let result = triple_sweep_increse(contents);
     assert!(result == 5);
 }
