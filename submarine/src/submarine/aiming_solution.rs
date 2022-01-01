@@ -1,8 +1,7 @@
+use log::debug;
 use std::env;
 use std::fs;
 use std::string::String;
-
-use log::debug;
 
 pub struct Position {
     pub distance: u32,
@@ -71,4 +70,23 @@ pub fn simple_aiming(contents: String) -> Position {
     debug!("Distance x Solution = {}", distance * depth);
 
     Position { depth, distance }
+}
+
+#[test]
+fn simple_test() {
+    let contents =
+        std::fs::read_to_string("data/02-test").expect("Something went wrong reading the file");
+    let result = simple_aiming(contents);
+    assert!(result.depth == 10);
+    assert!(result.distance == 15);
+    assert!(result.result() == 150);
+}
+#[test]
+fn complex_test() {
+    let contents =
+        std::fs::read_to_string("data/02-test").expect("Something went wrong reading the file");
+    let result = complex_aiming(contents);
+    assert!(result.depth == 60);
+    assert!(result.distance == 15);
+    assert!(result.result() == 900);
 }
