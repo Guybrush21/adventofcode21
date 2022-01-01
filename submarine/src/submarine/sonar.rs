@@ -26,7 +26,7 @@ pub fn triple_sweep_increse(input: String) -> i32 {
             .clone()
             .enumerate()
             .filter(|&(j, _)| j >= i - 2 && j <= i)
-            .map(|(j, val)| val.parse().expect("parsing error"))
+            .map(|(_, val)| val.parse().expect("parsing error"))
             .collect();
 
         trace!("{:?}", triplet);

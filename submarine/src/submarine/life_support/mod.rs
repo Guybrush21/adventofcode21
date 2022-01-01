@@ -1,5 +1,5 @@
-mod life_support_test;
 mod report_analysis;
+mod tests;
 
 use log::debug;
 

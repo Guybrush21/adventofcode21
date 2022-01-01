@@ -1,6 +1,4 @@
 use log::debug;
-use std::env;
-use std::fs;
 use std::string::String;
 
 pub struct Position {
