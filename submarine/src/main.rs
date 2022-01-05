@@ -87,5 +87,5 @@ fn bingo(datafile: &str) {
     use submarine::bingo;
     info!("==== DAY 04 - PART ONE ====");
     let data = fs::read_to_string(datafile).expect("Something went wrong reading the file");
-    bingo::resolve(data);
+    bingo::play(&data);
 }

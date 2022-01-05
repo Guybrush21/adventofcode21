@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use log::debug;
+use log::{debug, info};
 
 mod tests;
 
@@ -32,7 +32,7 @@ impl Board {
         }
     }
 
-    pub fn is_winning(&self, extractions: Vec<u8>) -> bool {
+    pub fn is_winning(&self, extractions: &Vec<u8>) -> bool {
         if extractions.len() < 5 {
             return false;
         }
@@ -56,7 +56,7 @@ impl Board {
         win
     }
 
-    fn calculate_score(&self, extractions: &Vec<u8>) -> u32 {
+    pub fn calculate_score(&self, extractions: &Vec<u8>) -> u32 {
         let mut numbers: HashSet<u8> = HashSet::with_capacity(25);
 
         for i in self.rows.concat() {
@@ -76,19 +76,6 @@ impl Board {
     }
 }
 
-pub fn resolve(data: String) {
-    // read extractions
-    let numbers = extraction(&data);
-    let board = build_boards(&data);
-
-    debug!("{:?}", numbers);
-    debug!("{:?}", board);
-
-    // read boards
-    // calculate winning board
-    // calculate win board result
-}
-
 pub fn extraction(data: &str) -> Vec<u8> {
     let raw = data.lines().nth(0).unwrap();
     let extraction: Vec<u8> = raw
@@ -100,6 +87,37 @@ pub fn extraction(data: &str) -> Vec<u8> {
         .collect();
 
     extraction
+}
+
+pub fn play(data: &str) {
+    let boards = build_boards(data);
+    let numbers = extraction(data);
+    info!("Total boards are: {:?}", boards.len());
+
+    let mut bingo: Vec<u8> = Vec::new();
+    let mut winner_board_index = -1;
+
+    for n in numbers {
+        bingo.push(n);
+        info!("Current extraction is: {:?}", &bingo);
+
+        for i in boards.iter().enumerate() {
+            if i.1.is_winning(&bingo) {
+                winner_board_index = i.0 as i32;
+                break;
+            }
+        }
+
+        if winner_board_index != -1 {
+            break;
+        }
+    }
+
+    info!("Wining board index is: {}", winner_board_index);
+    info!(
+        "Wining board score is: {}",
+        boards[winner_board_index as usize].calculate_score(&bingo)
+    );
 }
 
 pub fn build_boards(data: &str) -> Vec<Board> {

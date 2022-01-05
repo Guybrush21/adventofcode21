@@ -53,9 +53,9 @@ fn board_dont_win() {
     let boards = build_boards(&contents);
     let extraction = extraction(&contents);
 
-    assert!(!boards[0].is_winning(vec![0, 1, 3]));
-    assert!(!boards[0].is_winning(vec![22, 70, 44, 55, 0, 1, 3]));
-    assert!(!boards[2].is_winning(vec![17, 23, 2, 0, 14, 21]));
+    assert!(!boards[0].is_winning(&vec![0, 1, 3]));
+    assert!(!boards[0].is_winning(&vec![22, 70, 44, 55, 0, 1, 3]));
+    assert!(!boards[2].is_winning(&vec![17, 23, 2, 0, 14, 21]));
 }
 
 #[test]
@@ -66,10 +66,10 @@ fn board_win_row() {
     let boards = build_boards(&contents);
     let extraction = extraction(&contents);
 
-    assert!(boards[0].is_winning(vec![22, 13, 17, 11, 0]));
-    assert!(boards[0].is_winning(vec![21, 9, 14, 16, 7]));
-    assert!(boards[0].is_winning(vec![0, 1, 21, 9, 14, 16, 7]));
-    assert!(boards[2].is_winning(vec![7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24]));
+    assert!(boards[0].is_winning(&vec![22, 13, 17, 11, 0]));
+    assert!(boards[0].is_winning(&vec![21, 9, 14, 16, 7]));
+    assert!(boards[0].is_winning(&vec![0, 1, 21, 9, 14, 16, 7]));
+    assert!(boards[2].is_winning(&vec![7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24]));
 }
 
 #[test]
@@ -80,7 +80,7 @@ fn board_win_column() {
     let boards = build_boards(&contents);
     let extraction = extraction(&contents);
 
-    assert!(boards[0].is_winning(vec![13, 2, 9, 10, 12]));
+    assert!(boards[0].is_winning(&vec![13, 2, 9, 10, 12]));
 }
 
 #[test]
