@@ -2,14 +2,13 @@
 
 Just trying to learn some Rust with the help of Advent of Code 2021 edition.
 
-## 01 Day 1: Sonar Sweep
+## Running solution
 
-just run the program with input file, as argument.
+There is only one crate, intially there were many, one for every day. This way I need to find a good way to keep source code organize.
 
-## 02 Day 2: Dive!
+cargo run will log in console the solution for every days.
 
-program will accept input file as argument, and optionally a second parameter.
-If launched with 'simple' parameter, program resolve part one, otherwise it
-will resolve part two of the problem.
+## Test
 
-## 03 Binary Diagnostic
+cargo test
+will launch some unit\integrated test. All of them are using the example provide in the Advent Of Code instructions.
