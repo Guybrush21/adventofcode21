@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use log::debug;
 
 mod tests;
@@ -52,6 +54,24 @@ impl Board {
             win = win || i.iter().all(|f| extractions.contains(f))
         }
         win
+    }
+
+    fn calculate_score(&self, extractions: &Vec<u8>) -> u32 {
+        let mut numbers: HashSet<u8> = HashSet::with_capacity(25);
+
+        for i in self.rows.concat() {
+            numbers.insert(i);
+        }
+        for i in self.columns.concat() {
+            numbers.insert(i);
+        }
+
+        let unmarked: Vec<&u8> = numbers
+            .iter()
+            .filter(|x| !extractions.contains(x))
+            .collect();
+        let sum: u32 = unmarked.iter().map(|&&b| b as u32).sum();
+        sum
     }
 }
 

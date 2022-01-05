@@ -82,3 +82,14 @@ fn board_win_column() {
 
     assert!(boards[0].is_winning(vec![13, 2, 9, 10, 12]));
 }
+
+#[test]
+fn calculate_score() {
+    let contents =
+        fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
+
+    let boards = build_boards(&contents);
+    let ex = vec![7u8, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24];
+
+    assert_eq!(boards[2].calculate_score(&ex), 188);
+}
