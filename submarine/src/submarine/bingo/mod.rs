@@ -29,6 +29,30 @@ impl Board {
             self.columns.push(col);
         }
     }
+
+    pub fn is_winning(&self, extractions: Vec<u8>) -> bool {
+        if extractions.len() < 5 {
+            return false;
+        }
+
+        self.is_winning_row(&extractions) || self.is_winning_column(&extractions)
+    }
+
+    fn is_winning_row(&self, extractions: &Vec<u8>) -> bool {
+        let mut win = false;
+        for i in &self.rows {
+            win = win || i.iter().all(|f| extractions.contains(f))
+        }
+        win
+    }
+
+    fn is_winning_column(&self, extractions: &Vec<u8>) -> bool {
+        let mut win = false;
+        for i in &self.columns {
+            win = win || i.iter().all(|f| extractions.contains(f))
+        }
+        win
+    }
 }
 
 pub fn resolve(data: String) {
