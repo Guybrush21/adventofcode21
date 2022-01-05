@@ -91,5 +91,5 @@ fn calculate_score() {
     let boards = build_boards(&contents);
     let ex = vec![7u8, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24];
 
-    assert_eq!(boards[2].calculate_score(&ex), 188);
+    assert_eq!(boards[2].calculate_score(&ex), 4512);
 }

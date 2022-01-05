@@ -71,7 +71,8 @@ impl Board {
             .filter(|x| !extractions.contains(x))
             .collect();
         let sum: u32 = unmarked.iter().map(|&&b| b as u32).sum();
-        sum
+        let last = u32::from(extractions.last().unwrap().clone());
+        sum * last
     }
 }
 
