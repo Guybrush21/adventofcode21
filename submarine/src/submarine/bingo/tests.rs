@@ -33,25 +33,14 @@ fn read_board() {
     let contents =
         fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
 
-    let mut columns: Vec<Vec<u8>> = Vec::new();
-    columns.push(vec![22, 8, 21, 6, 1]);
-    columns.push(vec![13, 2, 9, 10, 12]);
-    columns.push(vec![17, 23, 14, 3, 20]);
-    columns.push(vec![11, 4, 16, 18, 15]);
-    columns.push(vec![0, 24, 7, 5, 19]);
-
-    let mut rows: Vec<Vec<u8>> = Vec::new();
-    rows.push(vec![22, 13, 17, 11, 0]);
-    rows.push(vec![8, 2, 23, 4, 24]);
-    rows.push(vec![21, 9, 14, 16, 7]);
-    rows.push(vec![6, 10, 3, 18, 5]);
-    rows.push(vec![1, 12, 20, 15, 19]);
-
     let boards = build_boards(&contents);
     for i in &boards {
         println!("{:?}", i)
     }
 
-    assert!(vec_equals(&boards[0].rows[0], &rows[0]));
-    assert!(vec_equals(&boards[0].columns[0], &columns[0]));
+    assert_eq!(&boards[1].columns[2][2], &7);
+    assert_eq!(&boards[1].rows[4][4], &6);
+    assert_eq!(&boards[0].columns[4][0], &0);
+    assert_eq!(&boards[2].rows[4][3], &3);
+    assert_eq!(&boards[2].columns[3][3], &6);
 }
