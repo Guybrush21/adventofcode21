@@ -89,7 +89,7 @@ pub fn extraction(data: &str) -> Vec<u8> {
     extraction
 }
 
-pub fn play(data: &str) {
+pub fn play(data: &str) -> u32 {
     let boards = build_boards(data);
     let numbers = extraction(data);
     info!("Total boards are: {:?}", boards.len());
@@ -99,7 +99,7 @@ pub fn play(data: &str) {
 
     for n in numbers {
         bingo.push(n);
-        info!("Current extraction is: {:?}", &bingo);
+        debug!("Current extraction is: {:?}", &bingo);
 
         for i in boards.iter().enumerate() {
             if i.1.is_winning(&bingo) {
@@ -112,12 +112,43 @@ pub fn play(data: &str) {
             break;
         }
     }
+    debug!("Winning extraction is: {:?}", &bingo);
+    info!("Winning board index is: {}", winner_board_index);
 
-    info!("Wining board index is: {}", winner_board_index);
-    info!(
-        "Wining board score is: {}",
-        boards[winner_board_index as usize].calculate_score(&bingo)
-    );
+    let result = boards[winner_board_index as usize].calculate_score(&bingo);
+    info!("Winning board score is: {}", &result);
+    result
+}
+
+pub fn play_for_loose(data: &str) -> u32 {
+    let boards = build_boards(data);
+    let numbers = extraction(data);
+    info!("Total boards are: {:?}", boards.len());
+
+    let mut winning_boards: Vec<i32> = Vec::new();
+
+    let mut bingo: Vec<u8> = Vec::new();
+    let mut winner_board_index = -1;
+
+    for n in numbers {
+        bingo.push(n);
+        debug!("Current extraction is: {:?}", &bingo);
+
+        for i in boards.iter().enumerate() {
+            if i.1.is_winning(&bingo) {
+                winner_board_index = i.0 as i32;
+                if !winning_boards.contains(&(i.0 as i32)) {
+                    winning_boards.push(i.0 as i32);
+                }
+            }
+        }
+    }
+    info!("{} - {:?}", winning_boards.len(), winning_boards);
+    info!("Wining board index is: {}", winning_boards.last().unwrap());
+
+    let result = boards[winning_boards.last().unwrap().clone() as usize].calculate_score(&bingo);
+    info!("Wining board score is: {}", result);
+    result
 }
 
 pub fn build_boards(data: &str) -> Vec<Board> {

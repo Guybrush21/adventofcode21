@@ -2,7 +2,7 @@
 use std::fs;
 use std::{collections::HashSet, hash::Hash};
 
-use crate::submarine::bingo::{build_boards, extraction, Board};
+use crate::submarine::bingo::{build_boards, extraction, play, Board, play_for_loose};
 
 fn vec_equals<T>(a: &[T], b: &[T]) -> bool
 where
@@ -92,4 +92,20 @@ fn calculate_score() {
     let ex = vec![7u8, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24];
 
     assert_eq!(boards[2].calculate_score(&ex), 4512);
+}
+
+#[test]
+fn test_play_win() {
+    let contents =
+        fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
+    let result = play(&contents);
+    assert_eq!(result, 4512);
+}
+
+#[test]
+fn test_play_loose() {
+    let contents =
+        fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
+    let result = play_for_loose(&contents);
+    assert_eq!(result, 4512);
 }

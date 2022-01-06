@@ -88,4 +88,6 @@ fn bingo(datafile: &str) {
     info!("==== DAY 04 - PART ONE ====");
     let data = fs::read_to_string(datafile).expect("Something went wrong reading the file");
     bingo::play(&data);
+    info!("==== DAY 04 - PART TWO ====");
+    bingo::play_for_loose(&data);
 }
