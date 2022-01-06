@@ -1,6 +1,5 @@
+use log::{debug, error, info};
 use std::collections::HashSet;
-
-use log::{debug, info};
 
 mod tests;
 
@@ -128,26 +127,29 @@ pub fn play_for_loose(data: &str) -> u32 {
     let mut winning_boards: Vec<i32> = Vec::new();
 
     let mut bingo: Vec<u8> = Vec::new();
-    let mut winner_board_index = -1;
-
     for n in numbers {
         bingo.push(n);
         debug!("Current extraction is: {:?}", &bingo);
 
         for i in boards.iter().enumerate() {
-            if i.1.is_winning(&bingo) {
-                winner_board_index = i.0 as i32;
-                if !winning_boards.contains(&(i.0 as i32)) {
-                    winning_boards.push(i.0 as i32);
-                }
+            let index = i.0 as i32;
+            if i.1.is_winning(&bingo) && !winning_boards.contains(&index) {
+                winning_boards.push(index);
             }
         }
+
+        if winning_boards.len() == boards.len() {
+            break;
+        }
     }
-    info!("{} - {:?}", winning_boards.len(), winning_boards);
-    info!("Wining board index is: {}", winning_boards.last().unwrap());
+
+    info!(
+        "Last winning board index is: {}",
+        winning_boards.last().unwrap()
+    );
 
     let result = boards[winning_boards.last().unwrap().clone() as usize].calculate_score(&bingo);
-    info!("Wining board score is: {}", result);
+    info!("Last winning score is: {}", result);
     result
 }
 

@@ -1,8 +1,8 @@
 #[cfg(test)]
+use crate::submarine::bingo::{build_boards, extraction, play, play_for_loose, Board};
+use log::LevelFilter;
 use std::fs;
-use std::{collections::HashSet, hash::Hash};
-
-use crate::submarine::bingo::{build_boards, extraction, play, Board, play_for_loose};
+use std::{collections::HashSet, env, hash::Hash};
 
 fn vec_equals<T>(a: &[T], b: &[T]) -> bool
 where
@@ -51,7 +51,6 @@ fn board_dont_win() {
         fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
 
     let boards = build_boards(&contents);
-    let extraction = extraction(&contents);
 
     assert!(!boards[0].is_winning(&vec![0, 1, 3]));
     assert!(!boards[0].is_winning(&vec![22, 70, 44, 55, 0, 1, 3]));
@@ -64,7 +63,6 @@ fn board_win_row() {
         fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
 
     let boards = build_boards(&contents);
-    let extraction = extraction(&contents);
 
     assert!(boards[0].is_winning(&vec![22, 13, 17, 11, 0]));
     assert!(boards[0].is_winning(&vec![21, 9, 14, 16, 7]));
@@ -78,7 +76,6 @@ fn board_win_column() {
         fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
 
     let boards = build_boards(&contents);
-    let extraction = extraction(&contents);
 
     assert!(boards[0].is_winning(&vec![13, 2, 9, 10, 12]));
 }
@@ -104,8 +101,16 @@ fn test_play_win() {
 
 #[test]
 fn test_play_loose() {
+    init_log();
     let contents =
         fs::read_to_string("data/04-test").expect("Something went wrong reading the file");
     let result = play_for_loose(&contents);
-    assert_eq!(result, 4512);
+    assert_eq!(result, 1924);
+}
+
+fn init_log() {
+    let _ = env_logger::builder()
+        .is_test(true)
+        .filter_level(LevelFilter::Debug)
+        .try_init();
 }
